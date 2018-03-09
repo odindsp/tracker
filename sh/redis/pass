@@ -1,0 +1,5 @@
+127.0.0.1:7003> config set masterauth 123456
+127.0.0.1:7003> config set requirepass 123456
+127.0.0.1:7003> auth 123456
+127.0.0.1:7003> config rewrite
+

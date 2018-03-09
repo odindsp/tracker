@@ -1,0 +1,47 @@
+
+1 环境需求:
+	Centos 6/7
+	gcc 4.x
+
+2 解压源码:
+	tar xvf tracker.tar.gz 
+	cd tracker/libs/
+		tar xvf librdkafka-0.9.5.tar.gz
+		tar xvf fcgi-2.4.1-SNAP-0311112127.tar
+
+3 安装依赖环境:
+	yum install libcurl libcurl-devel
+
+	cd tracker/libs/
+	安装hiredis(二次开发)
+		make && make install
+	
+	安装jemalloc
+		./configure --with-lg-quantum=3 --with-jemalloc-prefix=je_ --enable-cc-silence CFLAGS="-std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops "
+		make && make install
+
+	安装fcgi
+		./configure
+		make && make install
+		
+	安装librdkafka
+		./configure
+		make && make install
+
+4 编译价格解密程序
+	cd tracker/libs/price-libs
+	make && make install
+
+5 编译主程序:
+	cd tracker
+	make && make install
+	
+6 定制配置文件:
+	vim /etc/dspads_odin/dsp_tracker.conf
+	vim /etc/dspads_odin/dsp_price.conf
+
+7 启动程序:
+	追踪程序:
+	spawn-fcgi -a $IP -p $PORT -f /usr/bin/odin_tracker
+
+
